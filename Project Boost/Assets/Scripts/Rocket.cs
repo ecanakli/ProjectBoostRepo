@@ -11,9 +11,15 @@ public class Rocket : MonoBehaviour
 
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 100f;
+    [SerializeField] float levelLoadDelay = 2f;
+
     [SerializeField] AudioClip thrustSound;
     [SerializeField] AudioClip deadSound;
     [SerializeField] AudioClip clearLevelSound;
+
+    [SerializeField] ParticleSystem thrustParticles;
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem deadParticles;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
@@ -40,7 +46,13 @@ public class Rocket : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) // can thrust while rotating
         {
             rigidBody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            thrustParticles.Play();
         }
+        else
+        {
+            thrustParticles.Stop();
+        }
+
         ThrustSound();
     }
 
@@ -90,6 +102,7 @@ public class Rocket : MonoBehaviour
                 StartSuccessSequence();
                 break;
             default:
+
                 StartDeathSequence();
                 break;
         }
@@ -99,16 +112,18 @@ public class Rocket : MonoBehaviour
     {
         currentstate = State.Dying;
         audioSource.Stop();
+        deadParticles.Play();
         audioSource.PlayOneShot(deadSound);
-        Invoke("LoadFirstLevel", 1f); //do method after 1 sec
+        Invoke("LoadFirstLevel", levelLoadDelay); // do method after levelloaddelay second
     }
 
     private void StartSuccessSequence()
     {
         currentstate = State.Transcending;
         audioSource.Stop();
+        successParticles.Play();
         audioSource.PlayOneShot(clearLevelSound);
-        Invoke("LoadNextScene", 1f); //do method after 1 sec
+        Invoke("LoadNextScene", levelLoadDelay); // do method after levelloaddelay second
     }
 
     private void LoadFirstLevel()
