@@ -152,7 +152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 704bbb6172203424fafcdee4def1e78a, type: 2}
+  - {fileID: 2100000, guid: 247021e674ea2ba4e8df93ce7d1db116, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -251,8 +251,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a312641fcc63a498ca4ce2383b3b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rcsThrust: 250
+  rcsThrust: 2
   mainThrust: 1000
+  thrustSound: {fileID: 8300000, guid: 56a4fb97b52cf264da59634d5450d69e, type: 3}
+  deadSound: {fileID: 8300000, guid: b0d3f5041d79def468505391a8c61819, type: 3}
+  clearLevelSound: {fileID: 8300000, guid: 8c37e359bd4c8a9439c54c4e6e77a5fd, type: 3}
 --- !u!82 &-6370502083247387154
 AudioSource:
   m_ObjectHideFlags: 0
@@ -263,7 +266,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 91710ee95bb59a648956966b6acc813f, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.8
   m_Pitch: 0.8
