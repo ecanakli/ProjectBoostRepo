@@ -24,6 +24,8 @@ public class Rocket : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
 
+    bool collisionDisabled;
+
     // Use this for initialization
     void Start()
     {
@@ -38,6 +40,23 @@ public class Rocket : MonoBehaviour
         {
             Thrust();
             Rotate();
+        }
+
+        if (Debug.isDebugBuild) // Only work if Debug mod on
+        {
+            RespondtoDebugKeys();
+        }
+    }
+
+    private void RespondtoDebugKeys() //to do
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextScene();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionDisabled = !collisionDisabled;  // It will work toggle script like on off when press C
         }
     }
 
@@ -88,7 +107,7 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(currentstate != State.Alive) //ignore collisions when dead
+        if(currentstate != State.Alive || collisionDisabled) //ignore collisions when dead
         {
             return;
         }
