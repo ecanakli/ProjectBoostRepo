@@ -91,7 +91,7 @@ public class Rocket : MonoBehaviour
     }
     private void Rotate()
     {
-        rigidBody.freezeRotation = true; //Take manuel controll of rotation
+        rigidBody.angularVelocity = Vector3.zero; //remove rotation due to physics
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -101,8 +101,6 @@ public class Rocket : MonoBehaviour
         {
             transform.Rotate(-Vector3.forward * rcsThrust * Time.deltaTime);
         }
-
-        rigidBody.freezeRotation = false; //Resume physics controll of rotation
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -152,6 +150,13 @@ public class Rocket : MonoBehaviour
 
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(1);
+        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (nextScene == SceneManager.sceneCountInBuildSettings) //sceneCountInBuildSettings means last scene // if nextscene is last scene than load first scene
+        {
+            nextScene = 0;
+        }
+
+        SceneManager.LoadScene(nextScene);
     }
 }
