@@ -6,14 +6,14 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Oscillator : MonoBehaviour
 {
-    [SerializeField] Vector3 movVector; //To Determine The Range Of Object Position
-    [SerializeField] float period = 2f; //Period Time
+    [SerializeField] private Vector3 movVector; //To Determine The Range Of Object Position
+    [SerializeField] private float period = 2f; //Period Time
 
     //To Show Object Movement Value In Editor
     [SerializeField] [Range(-1, 1)]
-    float movScale; //Moving Pointer Between Left = (-1) Not Move = (0) Right Move = (1)
+    private float movScale; //Moving Pointer Between Left = (-1) Not Move = (0) Right Move = (1)
 
-    Vector3 startingPos;
+    private Vector3 startingPos;
 
     private void Start()
     {
