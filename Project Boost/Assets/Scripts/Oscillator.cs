@@ -2,35 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[DisallowMultipleComponent] // It's allows you to drag one same script(You cant attach more than one same script on spesific object);
+//It's Allows You To Drag One Same Script(You Can't Attach More Than One Same Script On Spesific Object);
+[DisallowMultipleComponent]
 public class Oscillator : MonoBehaviour
 {
-    [SerializeField] Vector3 movementVector;
-    [SerializeField] float period = 2f;
+    [SerializeField] Vector3 movVector; //To Determine The Range Of Object Position
+    [SerializeField] float period = 2f; //Period Time
 
+    //To Show Object Movement Value In Editor
     [SerializeField] [Range(-1, 1)]
-    float movementFactor;
+    float movScale; //Moving Pointer Between Left = (-1) Not Move = (0) Right Move = (1)
 
     Vector3 startingPos;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        //startingPos = new Vector3(transform.position.x - 21.69f, transform.position.y, transform.position.z);
+        SettingStartPos();
+    }
+
+    private void SettingStartPos()
+    {
         startingPos = transform.position;
     }
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        if(period <= Mathf.Epsilon) { return; } // protect against period is zero -----------// float numbers 
-        float cycles = Time.time / period; // grows continually from 0
+        if(period <= Mathf.Epsilon) { return; } //We Can't Equal Two Float Number, To Protect  Against Zero Error, Instead Of Using Zero, We Are Using Epsilon, Which Is The Closest Value To It
+        float cycles = Time.time / period; //Grows Continually From 0
 
-        const float tau = Mathf.PI * 2f; // about 6.28
-        float rawSinWave = Mathf.Sin(cycles * tau); //goes from -1 to 1
+        const float tau = Mathf.PI * 2f; //Cons Tau Value About 6.28f
+        float rawSinWave = Mathf.Sin(cycles * tau); //Goes From (-1 to 1)
 
-        //movementFactor = rawSinWave / 2f + 0.5f; // this range is set (-1, 1) in normal, so to calculate this in (0,1) area, we are divided by 2f which is new value = -0,5,0.5 then add 0.5 than the final value is in that range = (0 to 1)
-        movementFactor = rawSinWave;
-        Vector3 offset = movementVector * movementFactor;
-        transform.position = startingPos + offset;
+        movScale = rawSinWave;
+        //To Be Able To Adjust Value Later We Setted movScale To rawSinWave
+        /*-------------- To Move Object Between (0,1) Area --------------------
+        movScale = rawSinWave / 2f + 0.5f;
+        //This Range Is Set (-1 , 1) In Normal, If We Divided rawSinWave Value By 2f, Which Is New Value = - 0.5f, 0.5f
+        //Then Adding 0.5f, The Final Value Will Be In That Range (0 to 1)*/
+
+        Vector3 offset = movVector * movScale; //Creating Offset
+        transform.position = startingPos + offset; //Movement
     }
 }
