@@ -95,15 +95,6 @@ public class Rocket : MonoBehaviour
         rigidBody.angularVelocity = Vector3.zero; //Remove Rotation
 
         transform.Rotate(0f, 0f , -zMove);
-        /*
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(Vector3.forward * rotatePower * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(-Vector3.forward * rotatePower * Time.deltaTime);
-        }*/
     }
 
     void ThrustSound()
